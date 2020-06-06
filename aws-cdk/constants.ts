@@ -18,5 +18,5 @@ export const LAMBDA_EDGE_FUNC_PATH = `${LAMBDA_FUNCTIONS_DIST_FOLDER}/modifyS3Pa
 export const LAMBDA_EDGE_STACK_NAME = 'LambdaEdgeStack';
 export const LAMBDA_EDGE_ARN_OUTPUT_NAME = 'LambdaEdgeArnOutput';
 export const LAMBDA_EDGE_VERSION_OUTPUT_NAME = 'LambdaEdgeVersionOutput';
-export const LAMBDA_EDGE_REGION = 'us-east-2';
-export const MAIN_STACK_NAME = 'AwsTranscribeDemoStack';
+export const LAMBDA_EDGE_REGION = 'us-east-1';
+export const MAIN_STACK_NAME = 'AwsTranscribeStack';

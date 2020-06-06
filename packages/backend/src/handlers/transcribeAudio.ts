@@ -59,5 +59,6 @@ export const handler: SNSHandler = async event => {
             ReturnValues: 'ALL_NEW',
         })
         .promise();
+        
     console.log('updatedItem:', updatedItem);
 };
