@@ -69,9 +69,9 @@ export class AudioRecordTable extends React.Component<
                         <Form.Input
                             label="Search audio transcription status"
                             action={{
-                                color: 'teal',
+                                color: '#0074d9',
                                 icon: 'search',
-                                content: 'Search',
+                                content: 'Search or Refresh',
                                 onClick: this.handleSearch,
                             }}
                             value={searchText}

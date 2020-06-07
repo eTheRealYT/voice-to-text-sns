@@ -4,9 +4,10 @@
 }
 
 .App-header {
-  background-color: #222;
+  background-color: #0074d9;
   padding: 20px;
   color: white;
+  display: grid;
 }
 
 .App-title {
@@ -15,6 +16,7 @@
 
 .App-body {
   padding: 20px;
+  text-align: center;
 }
 
 .word:hover {

@@ -7,7 +7,7 @@ export const handler: SNSHandler = async event => {
     console.log(event.Records[0].Sns);
     const { DB_TABLE_NAME, OUTPUT_BUCKET_NAME } = process.env;
 
-    const recordId = event.Records[0].Sns.Message;
+    const recordId = event.Records[0].Sns.Message.split(':')[1];
 
     // Creating new record in DynamoDB table
     const dynamoDb = new DynamoDB.DocumentClient();

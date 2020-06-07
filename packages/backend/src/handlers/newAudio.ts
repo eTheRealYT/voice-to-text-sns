@@ -37,7 +37,7 @@ export const handler: S3Handler = async event => {
     const sns = new SNS();
     await sns
         .publish({
-            Message: recordId,
+            Message: 'Alert! Please check the app. New Voice message is being transcribed with record-id :'+recordId,
             TopicArn: SNS_TOPIC,
         })
         .promise();

@@ -49,7 +49,7 @@ export class UploadAudio extends React.Component<
         const { uploading, showModal, modalHeader, modalContent } = this.state;
         return (
             <React.Fragment>
-                <Header as="h2">Upload audio file</Header>
+                <Header as="h2">Upload Audio</Header>
                 <Form loading={uploading}>
                     <Form.Group inline>
                         <Form.Select
