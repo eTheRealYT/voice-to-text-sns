@@ -1,8 +1,6 @@
-# AWS Transcribe demo
+# Incoming Voice Messages
 
 A simple AWS demo utilizes Amazon Transcribe to convert audio to text and do analyze. [Demo site](https://d3f4959s1jbc2u.cloudfront.net/)
-
-> Please consider to [sponsor this project](https://github.com/sponsors/PinkyJie) for the AWS expenses.
 
 ![](./frontend.png)
 
