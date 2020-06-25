@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Form, Button, Segment } from 'semantic-ui-react';
 
 import { RECORD_STATUS } from '../types';
+import MicRecorder from 'mic-recorder-to-mp3';
 
 export interface RecordAudioProps {}
 
@@ -15,6 +16,7 @@ export class RecordAudio extends React.Component<
     RecordAudioState
 > {
     private mediaRecorder: any;
+    private MicRecorder = new MicRecorder({ bitRate: 128 });
 
     constructor(props: RecordAudioProps) {
         super(props);
@@ -39,26 +41,6 @@ export class RecordAudio extends React.Component<
                                 disabled={recordStatus !== RECORD_STATUS.DONE}
                                 onClick={this.startRecording}
                             />
-                            {recordStatus !== RECORD_STATUS.PAUSED ? (
-                                <Button
-                                    color="grey"
-                                    icon="pause"
-                                    content="Pause"
-                                    disabled={
-                                        recordStatus !== RECORD_STATUS.RECORDING
-                                    }
-                                    onClick={this.pauseRecording}
-                                />
-                            ) : (
-                                <Button
-                                    color="yellow"
-                                    content="Resume"
-                                    disabled={
-                                        recordStatus !== RECORD_STATUS.PAUSED
-                                    }
-                                    onClick={this.resumeRecording}
-                                />
-                            )}
                             <Button
                                 color="red"
                                 icon="square"
@@ -72,7 +54,7 @@ export class RecordAudio extends React.Component<
                 {recordedAudioURL && (
                     <Segment>
                         <audio controls>
-                            <source src={recordedAudioURL} type="audio/wav" />
+                            <source src={recordedAudioURL} type="audio/mpeg" />
                         </audio>
                     </Segment>
                 )}
@@ -81,68 +63,24 @@ export class RecordAudio extends React.Component<
     }
 
     private startRecording = () => {
-        this.setState({
-            recordedAudioURL: '',
-        });
-        const recordData: Blob[] = [];
-        if (!this.mediaRecorder) {
-            navigator.mediaDevices
-                .getUserMedia({ audio: true })
-                .then(stream => {
-                    this.mediaRecorder = new (window as any).MediaRecorder(
-                        stream
-                    );
-                    this.mediaRecorder.start();
-                    this.setState({
-                        recordStatus: RECORD_STATUS.RECORDING,
-                    });
-
-                    this.mediaRecorder.addEventListener(
-                        'dataavailable',
-                        (event: any) => {
-                            recordData.push(event.data);
-                        }
-                    );
-                    this.mediaRecorder.addEventListener(
-                        'stop',
-                        (event: any) => {
-                            const audioBlob = new Blob(recordData, {
-                                type: 'audio/wav',
-                            });
-                            const audioUrl = URL.createObjectURL(audioBlob);
-                            this.setState({
-                                recordedAudioURL: audioUrl,
-                            });
-                        }
-                    );
+        this.MicRecorder
+            .start()
+            .then(() => {
+                this.setState({
+                    recordStatus: RECORD_STATUS.RECORDING,
                 });
-        }
-    };
+            }).catch((e) => console.error(e));
+        };
 
-    private pauseRecording = () => {
-        if (this.mediaRecorder) {
-            this.mediaRecorder.pause();
+      private stopRecording = () => {
+        this.MicRecorder
+          .stop()
+          .getMp3()
+          .then(([buffer, blob]) => {
+            const audioUrl = URL.createObjectURL(blob);
             this.setState({
-                recordStatus: RECORD_STATUS.PAUSED,
+                recordedAudioURL: audioUrl,
             });
-        }
-    };
-
-    private resumeRecording = () => {
-        if (this.mediaRecorder) {
-            this.mediaRecorder.resume();
-            this.setState({
-                recordStatus: RECORD_STATUS.RECORDING,
-            });
-        }
-    };
-
-    private stopRecording = () => {
-        if (this.mediaRecorder) {
-            this.mediaRecorder.stop();
-            this.setState({
-                recordStatus: RECORD_STATUS.DONE,
-            });
-        }
-    };
+          }).catch((e) => console.log(e));
+      };
 }
