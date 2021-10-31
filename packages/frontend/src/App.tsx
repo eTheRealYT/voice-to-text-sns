@@ -7,7 +7,7 @@ export function App() {
     return (
         <div className="App">
             <header className="App-header">
-                <h1 className="App-title">Incoming Voice Messages</h1>
+                <h1 className="App-title">Online Voice to Text Converter</h1>
             </header>
             <div className="App-body">
                 <UploadAudio/>
