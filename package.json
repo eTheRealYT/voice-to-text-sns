@@ -9,7 +9,7 @@
   "name": "aws-transcribe-demo",
   "version": "1.0.0",
   "description": "A simple AWS demo utilises Amazon Transcribe to convert audio to text and analyse.",
-  "author": "Wenbo Jie <pinkyjie.gn@gmail.com>",
+  "author": "Deepak Mishra",
   "scripts": {
     "lerna": "lerna",
     "cdk": "cdk",
